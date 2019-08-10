@@ -1,6 +1,17 @@
 const mongo = require('mongodb').MongoClient;
-const client = require('socket.io').listen(4000).sockets;
 
+var express = require('express')
+var app=express();
+var server = require('http').createServer(app)
+const client = require('socket.io').listen(server).sockets;
+
+
+server.listen(process.env.PORT || 4000);
+console.log("Server Connecting 4000")
+app.get('/',function(req,res){
+    res.sendFile(__dirname + '/index.html')
+
+});
 // Connect to mongo
 mongo.connect('mongodb://admin:arielWINTE6@ds161062.mlab.com:61062/mydb', function(err, db){
     if(err){
